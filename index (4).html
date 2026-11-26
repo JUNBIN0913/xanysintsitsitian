@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preload" href="edukai-5_1_20251208.woff2" as="font" type="font/woff2" crossorigin>
+<title>漢語新詞辭典</title>
+<style>
+/* 字體：教育部標楷體（與本檔同資料夾的 woff2）→ BiauKai → DFKai-SB → 標楷體；英數優先 Times New Roman */
+@font-face{font-family:"EduKai";src:url("edukai-5_1_20251208.woff2") format("woff2");font-display:swap}
+:root{--ink:#1d2433;--paper:#f2efe6;--indigo:#26405a;--red:#b3261e;--line:#b9b2a0;--soft:#6b6757;--grid:#b3261e40}
+*{box-sizing:border-box}
+html,body,button,input,select,textarea{font-family:"Times New Roman","EduKai","BiauKai","DFKai-SB","標楷體",serif}
+body{margin:0;background:#e4dfd0;color:var(--ink);font-size:18px;line-height:1.85}
+a{color:var(--indigo);text-decoration:none}a:hover{color:var(--red)}
+.top{background:var(--indigo);color:#f2efe6;display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;align-items:center;justify-content:space-between;padding:.5rem 1.2rem}
+.top a{color:#f2efe6}.top nav a{margin-left:1.4rem;letter-spacing:.15em}.top nav a:hover{color:#f4b8b0}
+.brand{display:flex;align-items:center;gap:.6rem;font-size:1.25rem;letter-spacing:.25em}
+.seal{display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;background:var(--red);color:#f2efe6;font-size:1.2rem;letter-spacing:0;border-radius:2px;transform:rotate(-3deg)}
+main{max-width:880px;margin:1.6rem auto 3rem;background:var(--paper);padding:1.6rem 1.8rem 2.4rem;box-shadow:0 0 0 5px var(--paper),0 0 0 6px var(--ink),0 0 0 1px var(--ink) inset;outline:1px solid transparent}
+@media(max-width:600px){main{margin:.8rem .7rem 2rem;padding:1rem 1rem 1.6rem}}
+h2{font-weight:normal;font-size:1.3rem;letter-spacing:.3em;color:var(--indigo);margin:1.8rem 0 .4rem;padding-bottom:.25rem;border-bottom:3px double var(--ink)}
+.hero{padding:.4rem 0 1rem}
+.ht{display:flex;align-items:center;gap:.8rem;font-size:clamp(1.8rem,8.5vw,3.2rem);font-weight:normal;letter-spacing:.2em;margin:0 0 1rem;color:var(--indigo);line-height:1.3;white-space:nowrap}
+.ht .seal{flex:none;width:1.1em;height:1.1em;font-size:inherit;letter-spacing:0}
+.ti{display:inline-block;position:relative;width:3rem;height:3rem;line-height:3rem;text-align:center;font-size:2rem;border:1px solid var(--red);vertical-align:top;
+ background:linear-gradient(to right,transparent calc(50% - .5px),var(--grid) calc(50% - .5px),var(--grid) calc(50% + .5px),transparent calc(50% + .5px)),linear-gradient(to bottom,transparent calc(50% - .5px),var(--grid) calc(50% - .5px),var(--grid) calc(50% + .5px),transparent calc(50% + .5px)),#fffdf6}
+.ti.L{width:5.6rem;height:5.6rem;line-height:5.6rem;font-size:4.2rem}
+.zc{display:inline-flex;align-items:flex-start;margin:0 .9rem .5rem 0}
+.zc small{writing-mode:vertical-rl;text-orientation:upright;font-size:1.15rem;line-height:1.1;margin-left:.25rem;color:var(--indigo);letter-spacing:.05em}
+.py{font-family:"Times New Roman",serif;color:var(--soft)}
+.ent{display:flex;gap:1rem;padding:.8rem 0;border-bottom:1px dotted var(--line)}
+.ent .ti{flex:none;margin-right:2px}.ent .hd{flex:none;display:flex;flex-wrap:wrap;max-width:9.5rem}
+.ent .bd{min-width:0}.ent .bd a{color:var(--ink)}
+.tag{display:inline-block;border:1px solid var(--red);color:var(--red);padding:0 .45rem;margin:.15rem .35rem .15rem 0;font-size:.85rem;letter-spacing:.1em;line-height:1.5;background:transparent}
+.tag.on,.tag:hover{background:var(--red);color:#f2efe6}
+input,select,textarea,button{font-size:1rem;padding:.45rem .7rem;border:1px solid var(--ink);border-radius:0;background:#fffdf6;color:var(--ink)}
+textarea{width:100%;min-height:5rem}
+button{cursor:pointer;background:var(--indigo);color:#f2efe6;border-color:var(--indigo);letter-spacing:.15em}
+button:hover{background:var(--red);border-color:var(--red)}button.g{background:transparent;color:var(--indigo)}button.g:hover{color:#f2efe6}button:disabled{opacity:.5}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}.row>input{flex:1;min-width:10rem}
+.card{border:1px solid var(--line);border-left:4px solid var(--indigo);background:#fbf9f1;padding:.6rem 1rem;margin:.7rem 0}
+ol.s{list-style:trad-chinese-informal;padding-left:2.6rem}ol.s li{margin:.5rem 0}ol.s li::marker{color:var(--red)}
+.mask{position:fixed;inset:0;background:#1d243388;display:flex;align-items:center;justify-content:center;padding:1rem;z-index:9}
+.mask>div{background:var(--paper);padding:1rem 1.3rem;border:1px solid var(--ink);box-shadow:0 0 0 4px var(--paper),0 0 0 5px var(--ink);max-width:480px;width:100%}
+label{display:block;margin:.5rem 0 .1rem}.muted{color:var(--soft)}
+.lg{max-width:340px;margin:1rem auto;text-align:center}.lg input{width:100%}.lg p{margin:1rem 0}
+footer{text-align:center;font-size:.8rem;color:var(--soft);padding:0 1rem 2rem;letter-spacing:.1em}
+.xl{color:var(--red);border-bottom:1px solid var(--red)}.xl:hover{background:#b3261e1a}
+.tabs{margin:.8rem 0}.tabs button{margin-right:.4rem}.sen{display:flex;gap:.4rem;margin:.3rem 0}.done{opacity:.55}
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="#/"><span class="seal">詞</span>漢語新詞辭典</a>
+<nav><a href="#/">首頁</a><a href="#/report">回報</a><a href="#/about">說明</a><a href="#/thanks">致謝</a><a href="#/admin">後臺</a></nav></header>
+<main id="app"></main>
+<footer id="ft"></footer>
+<div id="modal"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,collection,getDocs,getDoc,doc,addDoc,setDoc,updateDoc,deleteDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* ===== Firebase 設定區塊：請貼上你的專案設定 ===== */
+const firebaseConfig={apiKey:"YOUR_API_KEY",authDomain:"YOUR_PROJECT.firebaseapp.com",projectId:"YOUR_PROJECT_ID",storageBucket:"YOUR_PROJECT.appspot.com",messagingSenderId:"YOUR_SENDER_ID",appId:"YOUR_APP_ID"};
+/* ================================================= */
+const app=initializeApp(firebaseConfig),db=getFirestore(app),auth=getAuth(app);
+const BUILTIN=["流行語","哏","醫學名詞","化學名詞","追星名詞"];
+const TYPES=["注音／拼音錯誤","釋義不完整或有誤","標籤分類不當","重複收錄","其他問題"];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let pagesData={},loadOk=false,loaded=false,entries=[],customTags=[],user=null,isAdmin=false,tab="entries",lastReport=0;
+
+/* ===== 拼音 → 注音 ===== */
+const I={b:"ㄅ",p:"ㄆ",m:"ㄇ",f:"ㄈ",d:"ㄉ",t:"ㄊ",n:"ㄋ",l:"ㄌ",g:"ㄍ",k:"ㄎ",h:"ㄏ",j:"ㄐ",q:"ㄑ",x:"ㄒ",zh:"ㄓ",ch:"ㄔ",sh:"ㄕ",r:"ㄖ",z:"ㄗ",c:"ㄘ",s:"ㄙ"};
+const F={a:"ㄚ",o:"ㄛ",e:"ㄜ",ai:"ㄞ",ei:"ㄟ",ao:"ㄠ",ou:"ㄡ",an:"ㄢ",en:"ㄣ",ang:"ㄤ",eng:"ㄥ",er:"ㄦ",i:"ㄧ",ia:"ㄧㄚ",io:"ㄧㄛ",ie:"ㄧㄝ",iao:"ㄧㄠ",iu:"ㄧㄡ",iou:"ㄧㄡ",ian:"ㄧㄢ",in:"ㄧㄣ",iang:"ㄧㄤ",ing:"ㄧㄥ",iong:"ㄩㄥ",u:"ㄨ",ua:"ㄨㄚ",uo:"ㄨㄛ",uai:"ㄨㄞ",ui:"ㄨㄟ",uei:"ㄨㄟ",uan:"ㄨㄢ",un:"ㄨㄣ",uen:"ㄨㄣ",uang:"ㄨㄤ",ong:"ㄨㄥ",ueng:"ㄨㄥ",v:"ㄩ",ve:"ㄩㄝ",van:"ㄩㄢ",vn:"ㄩㄣ","":""};
+const T={1:"",2:"ˊ",3:"ˇ",4:"ˋ"};
+function zy(s){
+  const t=(s.match(/[1-5]$/)||[])[0];let b=s.replace(/[1-5]$/,"").replace(/ü/g,"v").toLowerCase();
+  if(!/^[a-z]+$/.test(b))return s;
+  let ini="",fin;
+  if(/^(zh|ch|sh)/.test(b))ini=b.slice(0,2);
+  else if(b[0]==="y"){fin=/^yu/.test(b)?"v"+b.slice(2):/^yi/.test(b)?b.slice(1):"i"+b.slice(1)}
+  else if(b[0]==="w"){fin=b==="wu"?"u":"u"+b.slice(1)}
+  else if(I[b[0]])ini=b[0];
+  if(fin===undefined)fin=b.slice(ini.length);
+  if("jqx".includes(ini)&&ini&&fin[0]==="u")fin="v"+fin.slice(1);
+  if(["zh","ch","sh","r","z","c","s"].includes(ini)&&fin==="i")fin="";
+  if(!(fin in F))return s;
+  const z=(I[ini]||"")+F[fin];
+  return (!t||t==="5")?"˙"+z:z+T[t];
+}
+function readings(w){
+  const P=window.pinyinPro;if(!P||!w)return{zhuyin:"",pinyin:""};
+  const m=P.pinyin(w,{type:"array"}),n=P.pinyin(w,{type:"array",toneType:"num",v:true});
+  return{pinyin:m.join(" "),zhuyin:n.map(zy).join(" ")};
+}
+const plain=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s/g,"");
+
+/* ===== 資料 ===== */
+const sortNew=a=>a.sort((x,y)=>(y.createdAt?.seconds||0)-(x.createdAt?.seconds||0));
+async function load(){
+  entries=sortNew((await getDocs(collection(db,"entries"))).docs.map(d=>({id:d.id,...d.data()})));
+  customTags=(await getDocs(collection(db,"tags"))).docs.map(d=>({id:d.id,...d.data()}));
+  try{pagesData={};(await getDocs(collection(db,"pages"))).forEach(d=>{pagesData[d.id]=d.data().text})}catch(e){console.warn("pages",e)}
+}
+const allTags=()=>[...BUILTIN,...customTags.map(t=>t.name)];
+const tagHtml=(t,cur)=>`<a class="tag ${cur===t?"on":""}" href="#/search?tag=${encodeURIComponent(t)}">${esc(t)}</a>`;
+const cells=(w,c="")=>[...w].map(x=>`<span class="ti ${c}">${esc(x)}</span>`).join("");
+const card=e=>`<div class="ent"><a class="hd" href="#/entry/${e.id}">${cells(e.word)}</a><div class="bd"><a href="#/entry/${e.id}"><b>${esc(e.word)}</b></a>　${esc(e.zhuyin)}　<span class="py">${esc(e.pinyin)}</span><div>${(e.tags||[]).map(t=>tagHtml(t)).join("")}</div><div class="muted">${esc((e.senses?.[0]?.text||"").replace(/\[\[([^\]]+?)\]\]/g,"$1").slice(0,60))}</div></div></div>`;
+const searchBox=(q="")=>`<div class="row"><input id="q" value="${esc(q)}" placeholder="輸入漢字、注音或漢語拼音（帶調或不帶調皆可）" onkeydown="if(event.key==='Enter')go()"><button onclick="go()">搜尋</button></div>`;
+window.go=()=>{const q=$("#q").value,t=new URLSearchParams(location.hash.split("?")[1]||"").get("tag");location.hash="#/search?q="+encodeURIComponent(q)+(t?"&tag="+encodeURIComponent(t):"")};
+
+/* ===== 頁面 ===== */
+function home(){
+  const hero=`<div class="hero"><h1 class="ht"><span class="seal">新</span>漢語新詞辭典</h1>${searchBox()}</div>`;
+  if(!loaded){$("#app").innerHTML=hero;return}
+  const rnd=[...entries].sort(()=>Math.random()-.5).slice(0,1);
+  $("#app").innerHTML=hero+`<h2>隨機推薦</h2>${rnd.map(card).join("")||'<p class="muted">尚無詞條。管理員登入後臺後，可一鍵匯入範例詞條。</p>'}`;
+}
+function search(p){
+  if(!loaded)return $("#app").innerHTML="";
+  const q=p.get("q")||"",tag=p.get("tag")||"",qn=plain(q),qz=q.replace(/[ˊˇˋ˙\s]/g,"");
+  const r=entries.filter(e=>(!tag||(e.tags||[]).includes(tag))&&(!q||e.word.includes(q.trim())||(qz&&e.zhuyin.replace(/[ˊˇˋ˙\s]/g,"").includes(qz))||(qn&&(plain(e.pinyin).includes(qn)||(e.pinyinPlain||"").replace(/\s/g,"").includes(qn)))));
+  $("#app").innerHTML=`<h2>搜尋</h2>${searchBox(q)}<div style="margin:.6rem 0">${allTags().map(t=>tagHtml(t,tag)).join("")}${tag?`<a href="#/search?q=${encodeURIComponent(q)}">清除標籤</a>`:""}</div><p class="muted">共 ${r.length} 筆</p>${r.map(card).join("")}`;
+}
+function entry(id){
+  if(!loaded)return $("#app").innerHTML="";
+  const e=entries.find(x=>x.id===id);
+  if(!e){$("#app").innerHTML="<p>查無此詞條。</p>";return}
+  $("#app").innerHTML=`<div style="margin-top:.4rem">${cells(e.word,"L")}</div><p style="margin:.8rem 0 0">注音符號：${esc(e.zhuyin)}</p><p style="margin:0">漢語拼音：<span class="py">${esc(e.pinyin)}</span></p>
+  ${(e.senses||[]).some(s=>s.tags?.length)?"":`<div>${(e.tags||[]).map(t=>tagHtml(t)).join("")}</div>`}<h2>釋義</h2>
+  <ol class="s">${(e.senses||[]).map(s=>`<li>${linkify(s.text)}${(s.tags||[]).length?`<div>${s.tags.map(t=>tagHtml(t)).join("")}</div>`:""}</li>`).join("")}</ol>
+  <button class="g" onclick="openReport('${e.id}')">回報此詞條問題</button>`;
+}
+window.openReport=id=>{
+  const e=entries.find(x=>x.id===id);
+  $("#modal").innerHTML=`<div class="mask"><div><h3>回報：${esc(e.word)}</h3><label>問題類型</label><select id="rt">${TYPES.map(t=>`<option>${t}</option>`).join("")}</select>
+  <label>錯誤內容（必填）</label><textarea id="rc" maxlength="1000" placeholder="例如：『哏』的讀音應為 ㄍㄣˊ（gén），目前誤植為 ㄍㄣˇ"></textarea>
+  <div class="row" style="margin-top:.6rem"><button id="rs" onclick="sendReport('${id}')">送出</button><button class="g" onclick="$('#modal').innerHTML=''">取消</button></div><p id="rm" class="muted"></p></div></div>`;
+};
+window.$=$;
+window.sendReport=async id=>{
+  const c=$("#rc").value.trim(),e=entries.find(x=>x.id===id);
+  if(!c){$("#rm").textContent="請填寫錯誤內容。";return}
+  if(Date.now()-lastReport<5000){$("#rm").textContent="請稍候再送出。";return}
+  $("#rs").disabled=true;
+  try{await addDoc(collection(db,"reports"),{entryId:id,entryWord:e.word,type:$("#rt").value,content:c,status:"pending",createdAt:serverTimestamp()});
+    lastReport=Date.now();$("#rm").textContent="已送出，感謝您的回報！";$("#rc").value="";
+    setTimeout(()=>{$("#rs").disabled=false},5000);
+  }catch(err){$("#rm").textContent="送出失敗："+err.message;$("#rs").disabled=false}
+};
+function report(p){
+  const pre=entries.find(x=>x.id===p.get("id"));
+  $("#app").innerHTML=`<h2>回報詞條問題</h2><p class="muted">發現詞條有誤或不妥？請填寫下列表單，編者會盡快查核。</p>
+  <label>回報詞條（必填）</label><input id="rw" list="rl" value="${esc(pre?.word||"")}" placeholder="輸入詞語，例如：哏" style="width:100%"><datalist id="rl">${entries.map(e=>`<option value="${esc(e.word)}">`).join("")}</datalist>
+  <label>回報項目（必填）</label><select id="rt" style="width:100%">${TYPES.map(t=>`<option>${t}</option>`).join("")}</select>
+  <label>回報說明（必填）</label><textarea id="rc" maxlength="1000" placeholder="例如：『哏』的讀音應為 ㄍㄣˊ（gén），目前誤植為 ㄍㄣˇ"></textarea>
+  <p><button id="rs" onclick="sendPage()">送出回報</button></p><p id="rm" class="muted"></p>`;
+}
+window.sendPage=async()=>{
+  const w=$("#rw").value.trim(),e=entries.find(x=>x.word===w),c=$("#rc").value.trim();
+  if(!w){$("#rm").textContent="請填寫回報詞條。";return}
+  if(!c){$("#rm").textContent="請填寫回報說明。";return}
+  if(Date.now()-lastReport<5000){$("#rm").textContent="請稍候再送出。";return}
+  $("#rs").disabled=true;
+  try{await addDoc(collection(db,"reports"),{entryId:e?.id||"",entryWord:w,type:$("#rt").value,content:c,status:"pending",createdAt:serverTimestamp()});
+    lastReport=Date.now();$("#rm").textContent="已送出，感謝您的回報！";$("#rc").value="";
+    setTimeout(()=>{$("#rs").disabled=false},5000);
+  }catch(err){$("#rm").textContent="送出失敗："+err.message;$("#rs").disabled=false}
+};
+const DEF={about:`## 哏與流行語的區別
+本辭典的「哏」與「流行語」兩個標籤常被混用，這裡說明編者的分法，供使用者參考。
+- **哏**（今多寫作「梗」）：本是相聲用語，指引人發笑的關鍵與笑點。引申為特定的笑料、典故或橋段，多源自影視、事件、網路迷因等，須知道出處才懂笑點。重點在笑點與典故。
+- **流行語**：指一段時間內被廣泛使用的詞語或說法，不一定有笑點，也不必有特定出處，常反映社會現象或世代心態。重點在流行與普及。
+## 如何判斷
+- 看有沒有「出處」：一句話必須回到某部作品或某件事才懂，傾向標為哏。
+- 看使用範圍：已脫離原本出處、一般人都會用，傾向標為流行語。
+- 兩者可以重疊：原本是哏，後來廣為流傳，可以同時標上「哏」與「流行語」。
+不同義項的類型可以不同，所以標籤是按義項分別標註的。`,thanks:`## 致謝
+- **編纂理念：**忠實記錄當代漢語新詞，兼顧通俗與嚴謹，供後人查考語言流變。
+- **資料來源：**（請至後臺「頁面」分頁填寫）
+- **貢獻者名單：**（請至後臺「頁面」分頁填寫）`};
+/* 超連結：「詞語」或 [[詞語]] 若為已收錄詞條，即成為可點擊連結 */
+function linkify(t){
+  let out="",i=0,m;const R=/\[\[([^\]]+?)\]\]|「([^「」]+?)」/g;t=String(t??"");
+  while((m=R.exec(t))){
+    out+=esc(t.slice(i,m.index));
+    const w=(m[1]||m[2]).trim(),e=entries.find(x=>x.word===w),a=e?`<a class="xl" href="#/entry/${e.id}">${esc(w)}</a>`:"";
+    out+=m[1]?(a||esc(w)):(a?`「${a}」`:esc(m[0]));
+    i=R.lastIndex;
+  }
+  return out+esc(t.slice(i));
+}
+const bd=t=>linkify(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+function rich(t){let h="",ul=false;for(const l of String(t).split("\n")){const x=l.trim();if(x.startsWith("- ")){if(!ul){h+='<ol class="s">';ul=true}h+=`<li>${bd(x.slice(2))}</li>`;continue}if(ul){h+="</ol>";ul=false}if(!x)continue;h+=x.startsWith("## ")?`<h2>${bd(x.slice(3))}</h2>`:`<p>${bd(x)}</p>`}return h+(ul?"</ol>":"")}
+const pageText=k=>pagesData[k]??DEF[k];
+function about(){if(!loaded)return $("#app").innerHTML="";$("#app").innerHTML=rich(pageText("about"))}
+function thanks(){if(!loaded)return $("#app").innerHTML="";$("#app").innerHTML=rich(pageText("thanks"))}
+window.savePage=async k=>{const t=$("#pg-"+k).value.trim();await setDoc(doc(db,"pages",k),{text:t,updatedAt:serverTimestamp()});pagesData[k]=t;alert("已儲存")};
+window.resetPage=async k=>{if(confirm("還原為預設內容？")){await deleteDoc(doc(db,"pages",k));delete pagesData[k];route()}};
+
+/* ===== 後臺 ===== */
+async function admin(p){
+  if(!user){
+    $("#app").innerHTML=`<div class="lg"><h2>後臺登入</h2><label>電子郵件</label><input id="em" type="email"><label>密碼</label><input id="pw" type="password" onkeydown="if(event.key==='Enter')login()"><p><button onclick="login()">登入</button></p><p id="lm" class="muted"></p></div>`;return;
+  }
+  if(!isAdmin){$("#app").innerHTML=`<h2>權限不足</h2><p>此帳號不在管理員名單內。請於 Firestore 的 admins 集合新增您的 UID：<code>${esc(user.uid)}</code></p><button onclick="logout()">登出</button>`;return}
+  const reps=tab==="reports"?(await getDocs(collection(db,"reports"))).docs.map(d=>({id:d.id,...d.data()})):[];
+  sortNew(reps);
+  let body="";
+  if(tab==="entries")body=`<div class="row"><input id="aq" placeholder="後臺檢索詞條" oninput="aList()"><button onclick="openForm()">＋新增詞條</button>${entries.length?"":'<button class="g" onclick="seed()">匯入範例詞條</button>'}</div><div id="form"></div><div id="alist"></div>`;
+  if(tab==="tags")body=`<div class="row"><input id="nt" placeholder="新標籤名稱"><button onclick="addTag()">新增</button></div><p class="muted">預設標籤：${BUILTIN.join("、")}</p>${customTags.map(t=>`<div class="card">${esc(t.name)} <button class="g" onclick="delTag('${t.id}')">刪除</button></div>`).join("")}`;
+  if(tab==="reports")body=reps.map(r=>`<div class="card ${r.status==="done"?"done":""}"><b>${esc(r.entryWord)}</b>｜${esc(r.type)}｜${r.status==="done"?"已處理":"待處理"}<br>${esc(r.content)}<br><span class="muted">${r.createdAt?.toDate?.().toLocaleString("zh-TW")||""}</span><div class="row">${r.entryId?`<a href="#/admin?edit=${r.entryId}"><button class="g">前往修改詞條</button></a>`:""}${r.status==="done"?"":`<button onclick="repDone('${r.id}')">標為已處理</button>`}<button class="g" onclick="repDel('${r.id}')">刪除</button></div></div>`).join("")||"<p class='muted'>尚無回報。</p>";
+  if(tab==="pages")body=`<p class="muted">編輯前台「說明」與「致謝」頁。格式：以「## 」開頭為標題；以「- 」開頭為條列項目；用 **粗體** 標示強調；其餘為段落。</p>`+[["about","說明頁"],["thanks","致謝頁"]].map(([k,n])=>`<label>${n}</label><textarea id="pg-${k}" style="min-height:14rem">${esc(pageText(k))}</textarea><p class="row"><button onclick="savePage('${k}')">儲存</button><button class="g" onclick="resetPage('${k}')">還原預設</button></p>`).join("");
+  $("#app").innerHTML=`<h2>後臺管理 <button class="g" onclick="logout()" style="float:right">登出</button></h2><div class="tabs"><button class="${tab==="entries"?"":"g"}" onclick="setTab('entries')">詞條</button><button class="${tab==="tags"?"":"g"}" onclick="setTab('tags')">標籤</button><button class="${tab==="reports"?"":"g"}" onclick="setTab('reports')">回報</button><button class="${tab==="pages"?"":"g"}" onclick="setTab('pages')">頁面</button></div>${body}`;
+  if(tab==="entries"){aList();if(p.get("edit"))openForm(p.get("edit"))}
+}
+window.setTab=t=>{tab=t;route()};
+window.login=async()=>{try{await signInWithEmailAndPassword(auth,$("#em").value,$("#pw").value)}catch(e){$("#lm").textContent="登入失敗："+e.code}};
+window.logout=()=>signOut(auth);
+window.aList=()=>{const q=($("#aq")?.value||"").trim();$("#alist").innerHTML=entries.filter(e=>!q||e.word.includes(q)||e.zhuyin.includes(q)||plain(e.pinyin).includes(plain(q))).map(e=>`<div class="card"><b>${esc(e.word)}</b> ${esc(e.zhuyin)} <span class="py">${esc(e.pinyin)}</span><div class="row"><button class="g" onclick="openForm('${e.id}')">編輯</button><button class="g" onclick="delEntry('${e.id}')">刪除</button></div></div>`).join("")};
+window.openForm=id=>{
+  const e=entries.find(x=>x.id===id)||{word:"",zhuyin:"",pinyin:"",senses:[{text:""}],tags:[]};
+  window._eid=id||null;
+  $("#form").innerHTML=`<div class="card"><label>詞語</label><div class="row"><input id="fw" value="${esc(e.word)}"><button class="g" onclick="auto()">自動帶入讀音</button></div>
+  <label>注音（可手動修改）</label><input id="fz" value="${esc(e.zhuyin)}"><label>漢語拼音（可手動修改）</label><input id="fp" value="${esc(e.pinyin)}">
+  <label>釋義與標籤（出處與例句寫在釋義後方；每個義項可有各自的標籤，最多 5 個）</label><p class="muted" style="margin:.1rem 0">連結：寫成「情緒勒索」或 [[情緒勒索]]，若該詞已收錄，前台會自動成為可點擊的連結。</p><div id="fs"></div><button class="g" onclick="addSense()">＋新增義項</button>
+  <div class="row" style="margin-top:.6rem"><button onclick="saveEntry()">儲存</button><button class="g" onclick="$('#form').innerHTML=''">取消</button></div></div>`;
+  (e.senses?.length?e.senses:[{text:""}]).forEach(s=>addSense(s.text,s.tags??((e.senses||[]).length===1?e.tags:[])));
+  $("#form").scrollIntoView();
+};
+window.addSense=(t="",tags=[])=>{const d=document.createElement("div");d.className="sen";d.innerHTML=`<div style="flex:1;min-width:0"><textarea placeholder="釋義……">${esc(t)}</textarea><div class="tg"></div><button class="g" onclick="addTagSel(this.parentNode.querySelector('.tg'))">＋新增標籤</button></div><button class="g" onclick="this.parentNode.remove()">刪</button>`;$("#fs").appendChild(d);(tags||[]).slice(0,5).forEach(v=>addTagSel(d.querySelector(".tg"),v))};
+window.tagVal=x=>x.value==="__c"?x.nextElementSibling.value.trim():x.value;
+window.addTagSel=(box,v="")=>{if(box.children.length>=5){alert("每個義項最多 5 個標籤。");return}const w=document.createElement("span");w.style.cssText="display:inline-block;margin:.2rem .4rem .2rem 0";const L=allTags();if(v&&!L.includes(v))L.push(v);w.innerHTML=`<select onchange="const i=this.nextElementSibling;i.style.display=this.value==='__c'?'':'none';if(this.value==='__c')i.focus()">${L.map(t=>`<option ${t===v?"selected":""}>${esc(t)}</option>`).join("")}<option value="__c">＋自訂標籤…</option></select><input maxlength="20" placeholder="輸入自訂標籤" style="display:none;width:9rem"><button class="g" onclick="this.parentNode.remove()">✕</button>`;box.appendChild(w)};
+window.auto=()=>{const r=readings($("#fw").value.trim());$("#fz").value=r.zhuyin;$("#fp").value=r.pinyin};
+window.saveEntry=async()=>{
+  const word=$("#fw").value.trim(),senses=[...document.querySelectorAll("#fs .sen")].map(d=>({text:d.querySelector("textarea").value.trim(),tags:[...new Set([...d.querySelectorAll(".tg select")].map(tagVal).filter(Boolean))]})).filter(s=>s.text);
+  if(!word||!senses.length){alert("請填寫詞語與至少一個釋義。");return}
+  for(const t of new Set(senses.flatMap(s=>s.tags)))if(!allTags().includes(t)){await addDoc(collection(db,"tags"),{name:t,createdAt:serverTimestamp()});customTags.push({name:t})}
+  const pinyin=$("#fp").value.trim(),data={word,zhuyin:$("#fz").value.trim(),pinyin,pinyinPlain:plain(pinyin).replace(/ü/g,"u"),senses,tags:[...new Set(senses.flatMap(s=>s.tags))],updatedAt:serverTimestamp()};
+  if(window._eid)await updateDoc(doc(db,"entries",window._eid),data);else await addDoc(collection(db,"entries"),{...data,createdAt:serverTimestamp()});
+  await load();route();
+};
+window.delEntry=async id=>{if(confirm("確定刪除此詞條？")){await deleteDoc(doc(db,"entries",id));await load();route()}};
+window.addTag=async()=>{const n=$("#nt").value.trim();if(!n||allTags().includes(n))return;await addDoc(collection(db,"tags"),{name:n,createdAt:serverTimestamp()});await load();route()};
+window.delTag=async id=>{if(confirm("確定刪除此標籤？")){await deleteDoc(doc(db,"tags",id));await load();route()}};
+window.repDone=async id=>{await updateDoc(doc(db,"reports",id),{status:"done"});route()};
+window.repDel=async id=>{if(confirm("確定刪除此回報？")){await deleteDoc(doc(db,"reports",id));route()}};
+window.seed=async()=>{
+  const S=[["哏","流行語","指笑點、梗概，源自相聲術語；今多寫作「梗」，指網路流行的笑料或典故。例：這個哏玩了很多年。"],["內卷","流行語","指同一領域內競爭過度、個人收益卻遞減的現象。例：職場內卷嚴重。"],["躺平","流行語","指不再積極追求升遷與物質成就，採取低慾望的生活態度。"],["心肌梗塞","醫學名詞","冠狀動脈阻塞，使心肌因缺血而壞死的急症。症狀包括胸痛、冒冷汗，須立即送醫。"],["膽固醇","醫學名詞","脂質的一種，為細胞膜與荷爾蒙的原料；過高易導致動脈粥狀硬化。"],["氫氧化鈉","化學名詞","化學式 NaOH，俗稱燒鹼、苛性鈉，為強鹼，具強腐蝕性。"],["催化劑","化學名詞","能改變化學反應速率，而本身在反應前後不被消耗的物質。"],["應援","追星名詞","粉絲以加油、打榜、集資等方式支持偶像的行動。例：為演唱會準備應援物。"],["入坑","追星名詞","指開始喜歡某位藝人或某項事物，並逐漸投入。"],["打歌","追星名詞","歌手於音樂節目上演唱新歌，推廣專輯。"]];
+  for(const [word,tag,text] of S){const r=readings(word);await addDoc(collection(db,"entries"),{word,...r,pinyinPlain:plain(r.pinyin).replace(/ü/g,"u"),senses:[{text,tags:[tag]}],tags:[tag],createdAt:serverTimestamp(),updatedAt:serverTimestamp()})}
+  await load();route();
+};
+
+/* ===== 路由 ===== */
+function foot(){$("#ft").textContent=loadOk?`本詞典所收錄的詞條總數：${entries.length} 條`:""}
+async function route(){
+  foot();
+  const [path,qs]=location.hash.slice(1).split("?"),p=new URLSearchParams(qs||""),seg=path.split("/").filter(Boolean);
+  if(seg[0]==="report"&&$("#rw")){$("#rl").innerHTML=entries.map(e=>`<option value="${esc(e.word)}">`).join("");return}
+  try{
+    if(seg[0]==="search")search(p);else if(seg[0]==="entry")entry(seg[1]);else if(seg[0]==="report")report(p);else if(seg[0]==="about")about();else if(seg[0]==="thanks")thanks();else if(seg[0]==="admin")await admin(p);else home();
+  }catch(e){$("#app").innerHTML=`<p>發生錯誤：${esc(e.message)}</p>`}
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+onAuthStateChanged(auth,async u=>{
+  user=u;isAdmin=false;
+  if(u){try{isAdmin=(await getDoc(doc(db,"admins",u.uid))).exists()}catch(e){}}
+  route();
+});
+route();
+try{await Promise.race([load().then(()=>{loadOk=true}),new Promise((_,j)=>setTimeout(()=>j(new Error("逾時")),8000))])}catch(e){console.error(e)}
+loaded=true;route();
+</script>
+</body>
+</html>
