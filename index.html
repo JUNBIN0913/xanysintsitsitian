@@ -65,7 +65,15 @@ import {getFirestore,collection,getDocs,getDoc,doc,addDoc,setDoc,updateDoc,delet
 import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 /* ===== Firebase 設定區塊：請貼上你的專案設定 ===== */
-const firebaseConfig={apiKey:"YOUR_API_KEY",authDomain:"YOUR_PROJECT.firebaseapp.com",projectId:"YOUR_PROJECT_ID",storageBucket:"YOUR_PROJECT.appspot.com",messagingSenderId:"YOUR_SENDER_ID",appId:"YOUR_APP_ID"};
+const firebaseConfig = {
+  apiKey: "AIzaSyBSisbqamH7Qyy99CJC7H6h66ce4S9L_fQ",
+  authDomain: "xanysintsitsitian.firebaseapp.com",
+  projectId: "xanysintsitsitian",
+  storageBucket: "xanysintsitsitian.firebasestorage.app",
+  messagingSenderId: "605492673441",
+  appId: "1:605492673441:web:40ff962f04e874ee63e9e0",
+  measurementId: "G-TDW7TM939Y"
+};
 /* ================================================= */
 const app=initializeApp(firebaseConfig),db=getFirestore(app),auth=getAuth(app);
 const BUILTIN=["流行語","哏","醫學名詞","化學名詞","追星名詞"];
